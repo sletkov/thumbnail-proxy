@@ -1,7 +1,7 @@
 # thumbnail-proxy
 ## Описание
 - Сервис thumbnail-proxy используется для скачивания превью видео с YouTube.
-- У thumbnail-proxy есть клиентское приложение (CLI утилита):
+- У thumbnail-proxy есть клиентское приложение (CLI утилита): https://github.com/sletkov/thumbnail-proxy-client
 - Посмотреть документацию по API thumbnail proxy можно в директории /pkg/sdk/doc
 
 ## Установка и запуск
