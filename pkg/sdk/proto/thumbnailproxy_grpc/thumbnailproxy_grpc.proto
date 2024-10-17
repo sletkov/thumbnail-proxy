@@ -1,0 +1,17 @@
+syntax="proto3";
+
+package thumbnailproxy_grpc;
+
+option go_package = "sdk/go/thumbnailproxy_grpc";
+
+service ThumbnailProxy {
+  rpc GetThumbnail(URLRequest) returns (URLResponse) {}
+}
+
+message URLRequest {
+  repeated string URL = 1;
+}
+
+message URLResponse {
+  repeated string URL = 1;
+}
