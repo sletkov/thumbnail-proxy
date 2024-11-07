@@ -4,10 +4,7 @@ import (
 	"context"
 	proto "github.com/sletkov/thumbnail-proxy/pkg/sdk/go/thumbnailproxy_grpc"
 	"go.uber.org/zap"
-	"google.golang.org/grpc"
 )
-
-var Srv = grpc.NewServer()
 
 type ThumbnailProxyService interface {
 	GetThumbnail(ctx context.Context, URL []string) ([]string, error)

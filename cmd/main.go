@@ -12,6 +12,7 @@ import (
 	"github.com/sletkov/thumbnail-proxy/internal/transport/youtubeclient"
 	proto "github.com/sletkov/thumbnail-proxy/pkg/sdk/go/thumbnailproxy_grpc"
 	"go.uber.org/zap"
+	"google.golang.org/grpc"
 	"net"
 )
 
@@ -40,7 +41,8 @@ func main() {
 	transport := youtubeclient.New(cfg.YoutubeAPIKey)
 	thumbnailService := service.New(cache, transport)
 	grpcServer := grpcserver.New(thumbnailService)
-	proto.RegisterThumbnailProxyServer(grpcserver.Srv, grpcServer)
+	srv := grpc.NewServer()
+	proto.RegisterThumbnailProxyServer(srv, grpcServer)
 
 	lis, err := net.Listen("tcp", net.JoinHostPort(cfg.GRPCServerHost, cfg.GRPCServerPort))
 	if err != nil {
@@ -48,7 +50,7 @@ func main() {
 	}
 
 	zap.L().Info("grpc server started", zap.String("address:", net.JoinHostPort(cfg.GRPCServerHost, cfg.GRPCServerPort)))
-	if err := grpcserver.Srv.Serve(lis); err != nil {
+	if err := srv.Serve(lis); err != nil {
 		zap.L().Fatal("service stopped", zap.Error(err))
 	}
 }
